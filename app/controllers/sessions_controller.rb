@@ -12,8 +12,8 @@ class SessionsController < ApplicationController
       req.params['client_secret'] = client_secret
     end
 # binding.pry
-    data = JSON.parse(response.body, symboize_names: true)
-    access_token = data['access_token']
+    data = JSON.parse(response.body, symbolize_names: true)
+    access_token = data[:access_token]
 # binding.pry
     conn = Faraday.new(
       url: 'https://api.github.com',
@@ -21,7 +21,7 @@ class SessionsController < ApplicationController
       }
     )
     response = conn.get('/user')
-    data = JSON.parse(response.body, symboize_names: true)
+    data = JSON.parse(response.body, symbolize_names: true)
     # binding.pry
     user = User.find_or_create_by(uid: data[:id])
     user.username = data[:login]
@@ -30,6 +30,16 @@ class SessionsController < ApplicationController
     user.save
     # binding.pry
     session[:user_id] = user.id
+
+    repo_response = Faraday.get(
+      "https://api.github.com/user/repos",
+      {},
+      {"Authorization": "token #{user.token}"}
+    )
+    # binding.pry
+    @repos = JSON.parse(repo_response.body, symbolize_names: true)
+    # binding.pry
     redirect_to dashboard_path
   end
+
 end

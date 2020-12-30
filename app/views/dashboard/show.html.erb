@@ -1,1 +1,13 @@
+
 <h1>Welcome, <%= current_user.username %>!</h1>
+
+<h3>Total Repo's: <%= @repos.count %></h3>
+
+<h2>All Repos:</h2>
+<% @repos.each do |repo| %>
+  <% if repo[:private] == true %>
+    <p>Private Repo: <%= repo[:name] %></p>
+  <% else %>
+    <p>Public Repo: <%= repo[:name] %></p>
+  <% end %>
+<% end %>
