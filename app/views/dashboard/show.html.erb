@@ -4,10 +4,20 @@
 <h3>Total Repo's: <%= @repos.count %></h3>
 
 <h2>All Repos:</h2>
+<% private_repos = [] %>
+<% public_repos = [] %>
 <% @repos.each do |repo| %>
   <% if repo[:private] == true %>
-    <p>Private Repo: <%= repo[:name] %></p>
+    <% private_repos << repo[:name]%>
+    <!-- <p>Private Repo: <%= repo[:name] %></p> -->
   <% else %>
-    <p>Public Repo: <%= repo[:name] %></p>
+    <% public_repos << repo[:name]%>
+    <!-- <p>Public Repo: <%= repo[:name] %></p> -->
   <% end %>
+<% end %>
+<h4>Private Repos: (<%=private_repos.count%>)</h4><% private_repos.each do |private| %>
+  <li><%= private%></li>
+<% end %>
+<h4>Public Repos: (<%=public_repos.count%>)</h4><% public_repos.each do |public| %>
+  <li><%= public %></li>
 <% end %>
