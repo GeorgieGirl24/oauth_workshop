@@ -1,23 +1,10 @@
-
 <h1>Welcome, <%= current_user.username %>!</h1>
 
-<h3>Total Repo's: <%= @repos.count %></h3>
+<h2>Total of <%= @all_repos %> Repos:</h2>
 
-<h2>All Repos:</h2>
-<% private_repos = [] %>
-<% public_repos = [] %>
-<% @repos.each do |repo| %>
-  <% if repo[:private] == true %>
-    <% private_repos << repo[:name]%>
-    <!-- <p>Private Repo: <%= repo[:name] %></p> -->
-  <% else %>
-    <% public_repos << repo[:name]%>
-    <!-- <p>Public Repo: <%= repo[:name] %></p> -->
-  <% end %>
+<h4>Private Repos: (<%= @private_repos.count %>)</h4><% @private_repos.each do |private| %>
+  <li><%= link_to "#{private.name}", "#{private.url}" %></li>
 <% end %>
-<h4>Private Repos: (<%=private_repos.count%>)</h4><% private_repos.each do |private| %>
-  <li><%= private%></li>
-<% end %>
-<h4>Public Repos: (<%=public_repos.count%>)</h4><% public_repos.each do |public| %>
-  <li><%= public %></li>
+<h4>Public Repos: (<%= @public_repos.count %>)</h4><% @public_repos.each do |public| %>
+  <li><%= link_to "#{public.name}", "#{public.url}" %></li>
 <% end %>
