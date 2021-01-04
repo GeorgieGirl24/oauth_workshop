@@ -1,4 +1,4 @@
 <h1>Welcome!</h1>
 
-<%= link_to "Connect with GitHub",
-"https://github.com/login/oauth/authorize?client_id=#{GITHUB_CLIENT_ID}&scope=repo" %>
+<%= link_to "Connect with GitHub", '/auth/github/callback' %>
+<%# "https://github.com/login/oauth/authorize?client_id=#{GITHUB_CLIENT_ID}&scope=repo" %>
